@@ -1,10 +1,10 @@
 
-from re import I
+import math
+import os
 import random
+from re import I
 from threading import Timer
 from unittest import expectedFailure
-import os
-
 
 '''RPS Variables'''
 rpsChoices = [1,2,3]
@@ -19,11 +19,8 @@ computerScore = int(0)
 '''Game Functions'''
 def cls():
     os.system("cls" if os.name =="nt" else 'clear')
-
-
     
-
-dcls = Timer(3, cls)
+    
 
 '''RSP Functions'''
 def rspCheckResult(player1, player2, player, computer):
@@ -52,16 +49,30 @@ def rspCheckResult(player1, player2, player, computer):
     else:
         print("\nPlease choose between (1:Rock) (2:Scissors) (3:Paper)\n")
     return roundWinner
-        
+
+def choicesGet(input):
+    return rpsChoicesNames[int(input)-1]        
+
+
 '''Mind Reader Functions'''
 
 '''Optimus Prime Functions'''
+def checkPrime(userInput):
+    for x in range(2, math.floor(math.sqrt(userInput)+1)): #Decreases the range of numbers to check
+        if(userInput % x) == 0:
+            print("\n",userInput, "is not a prime number")
+            break
+    else: # Accidental else in for loop, wrong indentation that worked anyway =)
+        print("\n",userInput, "is a prime number")
+            
+
+
 
 '''Main Code'''
 while True:
     cls()
     print("\n**********\nMain Menu\n**********")
-    MenuChoice = input("What do you want to play? :\nRPS, Mind Reader or Optimus Prime (no caps)\n")
+    MenuChoice = input("What do you want to play? :\nRPS, Mind Reader, Optimus Prime or tutorial for info(no caps)\n")
     
     if MenuChoice == "exit":
         print("Leaving...")
@@ -69,11 +80,13 @@ while True:
     
     elif MenuChoice == "rps":
         '''RPS Game Code'''
+       
         cls()
         while True:
             print("\n***************\nWelcome to RPS!\n***************")
             player1 = input("Player 1 name: ")
             player2 = input("Player 2 name: (enter a zero if you want to play against computer) ")
+            
             if player2 == "0":
                 player2 = "Computer"
             while True:
@@ -99,10 +112,10 @@ while True:
                     roundWinner = rspCheckResult(player1, player2, int(playerChoice), int(computerChoice))
                     
                     if roundWinner == 1:
-                        print(player1, "chose", rpsChoicesNames[int(playerChoice)-1], ",", player2, "chose", rpsChoicesNames[int(computerChoice)-1], ":", player1, "won the round!")
+                        print(player1, "chose", choicesGet(playerChoice), ",", player2, "chose", choicesGet(computerChoice), ":", player1, "won the round!")
                         playerScore += 1
                     elif roundWinner == 2:
-                        print(player1, "chose", rpsChoicesNames[int(playerChoice)-1], ",", player2, "chose", rpsChoicesNames[int(computerChoice)-1], ":", player2, "won the round!")                      
+                        print(player1, "chose", choicesGet(playerChoice), ",", player2, "chose", choicesGet(computerChoice), ":", player2, "won the round!")                      
                         computerScore += 1
                     
                 else:
@@ -124,9 +137,17 @@ while True:
             while True:
                 try:
                     diff = int(input("Difficulty 1: 1-10\nDifficulty 2: 1-20\nDifficulty 3: 1-30\nPlease select a difficulty (1-3): "))
-                    break
+                    if diff <= 3 and diff >= 1:
+                        break
+                    else:
+                        print("Too high or too low")
+                    
                 except:
                     print("Input not a number")
+                
+            
+                    
+            
             print("\nGo ahead, try to guess the number I am thinking about")
             randNumber = random.randint(1,diff*10)
             guesses = 0
@@ -155,6 +176,34 @@ while True:
 
     elif MenuChoice == "optimus prime":
         '''Optimus Prime Code'''        
+        while True:
+            cls()
+            print("***************************\nWelcome to Optimus Prime\n***************************")
+            print("Here I check if the number you will insert is a prime number or not\n\nPlease input any number, no decimals nor negatives!")
+            while True:
+                userInput = input("(exit to leave) Number: ")
+                if userInput == "exit":
+                    break
+                elif userInput.isdigit() and int(userInput) > 1:
+                    checkPrime(int(userInput))
+                else:
+                    print("InputError!")
+                    
+            if input("\nDo you want to test another number? (1: Yes, Anything else: No): ") == "1":
+                continue
+            else: break 
         
+    elif MenuChoice == "tutorial":
+        '''Tutorial Code'''
+        while True:
+            cls()
+            print("\n********\nTutorial\n********")
+            print("Most places uses numbers 1-3 as input, some how big of a a number you'd like.\nType 'exit' almost anywhere to either go back or exit the whole game")
+            if input("'exit' for main menu: ") == "exit":
+                break
+            else:
+                print("input error")
+
+    
     else:
         print("Please type one of the above!")
