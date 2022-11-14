@@ -1,4 +1,5 @@
 
+import getpass
 import math
 import os
 import random
@@ -12,6 +13,7 @@ rpsChoicesNames = ["Rock", "Scissors", "Paper"]
 playerScore = int(0)
 computerScore = int(0)
 
+
 '''Mind Reader Variables'''
 
 '''Optimus Prime Variables'''
@@ -19,7 +21,6 @@ computerScore = int(0)
 '''Game Functions'''
 def cls():
     os.system("cls" if os.name =="nt" else 'clear')
-    
     
 
 '''RSP Functions'''
@@ -60,19 +61,17 @@ def checkPrime(userInput):
         print("\n",userInput, "is a prime number")
             
 
-
-
 '''Main Code'''
 while True:
     cls()
     print("\n**********\nMain Menu\n**********")
-    MenuChoice = input("What do you want to play? :\nRPS, Mind Reader, Optimus Prime or tutorial for info(no caps)\n")
+    MenuChoice = input("What do you want to play? :\n1: RPS, 2: Mind Reader, 3: Optimus Prime or 4: tutorial for info(no caps)\n")
     
     if MenuChoice == "exit":
         print("Leaving...")
         break
     
-    elif MenuChoice == "rps":
+    elif MenuChoice == "rps" or MenuChoice == "1":
         '''RPS Game Code'''
        
         cls()
@@ -87,19 +86,18 @@ while True:
                 try:
                     rounds = int(input("To how many points do you want to play?: "))
                     if rounds < 1:
-                        print("no no, none of that here")
+                        print("No no, none of that here")
                         continue
                     break
                 except:
                     print("Not a number")
             cls()
             while playerScore<rounds and computerScore<rounds:
-              
-                
                 print("\n",player1, ":", playerScore, "\n",player2,":",computerScore,"\n")
+                print("Hidden inputs, don't be afraid when they dont show")
                         
-                playerChoice = input(F"{player1} choose: \n1:Rock\n2:Scissors\n3:Paper\n")
-                computerChoice = input(F"{player2} choose: \n1:Rock\n2:Scissors\n3:Paper\n") if player2 != "Computer" else str(random.randint(1,3)) 
+                playerChoice = getpass.getpass(F"{player1} choose: \n1:Rock\n2:Scissors\n3:Paper\n")
+                computerChoice = getpass.getpass(F"{player2} choose: \n1:Rock\n2:Scissors\n3:Paper\n") if player2 != "Computer" else str(random.randint(1,3)) 
                 #Changes the random to string so I can check them both in the if statement, otherwise I would have seperate checks for them
                 cls()
                 if playerChoice == "exit" or computerChoice == "exit":
@@ -126,7 +124,7 @@ while True:
                 continue
             else: break
         
-    elif MenuChoice == "mind reader":
+    elif MenuChoice == "mind reader" or MenuChoice == "2":
         '''Mind Reader Code'''
         cls()
         while True:
@@ -138,11 +136,8 @@ while True:
                         break
                     else:
                         print("Too high or too low")
-                    
                 except:
                     print("Input not a number")
-                
-            
                     
             
             print("\nGo ahead, try to guess the number I am thinking about")
@@ -162,7 +157,6 @@ while True:
                     print("You need to go", 'higher' if int(userGuess) < randNumber else 'lower')
                     guesses += 1
                     print("Guesses:", guesses, "\n")
-                    
                 else:
                     print("Incorrect input")
                 
@@ -171,7 +165,7 @@ while True:
             else: break 
         
 
-    elif MenuChoice == "optimus prime":
+    elif MenuChoice == "optimus prime" or MenuChoice == "3":
         '''Optimus Prime Code'''        
         while True:
             cls()
@@ -190,7 +184,7 @@ while True:
                 continue
             else: break 
         
-    elif MenuChoice == "tutorial":
+    elif MenuChoice == "tutorial" or MenuChoice == "4":
         '''Tutorial Code'''
         while True:
             cls()
