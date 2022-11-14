@@ -29,22 +29,16 @@ def rspCheckResult(player1, player2, player, computer):
         if player == computer:
             print("\nDraw!")
         elif player == 1 and computer == 2:
-            # print("\n", player1,"chose rock,", player2,"chose scissors,", player1,"won!")
             roundWinner = 1
         elif player == 1 and computer == 3:
-            # print("\n", player1,"chose rock,", player2,"chose paper,", player2,"won!")
             roundWinner = 2
         elif player == 2 and computer == 1: 
-            # print("\n", player1,"chose scissors,", player2,"chose rock,", player2,"won!")
             roundWinner = 2
         elif player == 2 and computer == 3:
-            # print("\n", player1,"chose scissors,", player2,"chose paper,", player1,"won!")
             roundWinner = 1
         elif player == 3 and computer == 1:
-            # print("\n", player1,"chose paper,", player2,"chose rock,", player1,"won!")
             roundWinner = 1
         elif player == 3 and computer == 2:
-            # print("\n", player1,"chose paper,", player2,"chose scissors,", player2,"won!")
             roundWinner = 2
     else:
         print("\nPlease choose between (1:Rock) (2:Scissors) (3:Paper)\n")
@@ -92,6 +86,9 @@ while True:
             while True:
                 try:
                     rounds = int(input("To how many points do you want to play?: "))
+                    if rounds < 1:
+                        print("no no, none of that here")
+                        continue
                     break
                 except:
                     print("Not a number")
